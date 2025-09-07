@@ -6,16 +6,17 @@
     <title>AntaleVPN - IP API</title>
     <style>
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0f;
             color: #fff;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             line-height: 1.6;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px;
         }
         pre {
             background: #1a1a25;
@@ -29,6 +30,29 @@
             font-weight: bold;
             margin-top: 30px;
             display: block;
+            font-family: 'Courier New', monospace;
+        }
+        .api-response {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a25;
+            border-radius: 5px;
+            border: 1px solid #3a86ff;
+        }
+        .test-links {
+            margin: 20px 0;
+        }
+        .test-links a {
+            color: #3a86ff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-family: 'Courier New', monospace;
+        }
+        .test-links a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #3a86ff;
         }
     </style>
 </head>
@@ -37,11 +61,29 @@
         <h1>AntaleVPN IP API</h1>
         <p>Доступные эндпоинты:</p>
         
-        <span class="endpoint">GET /?=api-list</span>
-        <pre id="ipList"></pre>
+        <div class="test-links">
+            <a href="/?format=api-list" target="_blank">/?format=api-list</a>
+            <a href="/?format=api-json" target="_blank">/?format=api-json</a>
+        </div>
         
-        <span class="endpoint">GET /?=api-json</span>
-        <pre id="ipJson"></pre>
+        <span class="endpoint">GET /?format=api-list</span>
+        <pre>188.146.24.33
+95.111.206.247
+200.234.224.147</pre>
+        
+        <span class="endpoint">GET /?format=api-json</span>
+        <pre>{
+  "ips": [
+    "188.146.24.33",
+    "95.111.206.247",
+    "200.234.224.147"
+  ]
+}</pre>
+        
+        <div class="api-response" id="apiResponse" style="display: none;">
+            <h3>API Response:</h3>
+            <pre id="responseContent"></pre>
+        </div>
     </div>
 
     <script>
@@ -51,24 +93,25 @@
         // Разделяем по запятой
         const ipArray = ipString.split(',');
         
-        // Форматируем вывод
-        document.getElementById('ipList').textContent = ipArray.join('\n');
-        document.getElementById('ipJson').textContent = JSON.stringify({
-            ips: ipArray
-        }, null, 2);
-        
         // Проверяем параметры URL для API
         const urlParams = new URLSearchParams(window.location.search);
+        const format = urlParams.get('format');
         
-        if (urlParams.has('=api-list')) {
+        if (format === 'api-list') {
             // Выводим чистый текст с IP-адресами
             document.body.innerHTML = ipArray.join('\n');
             document.contentType = 'text/plain';
         }
-        else if (urlParams.has('=api-json')) {
+        else if (format === 'api-json') {
             // Выводим JSON
             document.body.innerHTML = JSON.stringify({ ips: ipArray });
             document.contentType = 'application/json';
+        }
+        else {
+            // Показываем тестовые ответы на главной странице
+            document.getElementById('apiResponse').style.display = 'block';
+            document.getElementById('responseContent').textContent = 
+                format ? `Unknown format: ${format}` : 'No format specified';
         }
     </script>
 </body>
