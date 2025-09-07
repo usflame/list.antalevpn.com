@@ -5,244 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AntaleVPN - IP API</title>
     <style>
-        :root {
-            --primary-bg: #0a0a0f;
-            --secondary-bg: #121218;
-            --card-bg: #1a1a25;
-            --accent-color: #3a86ff;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --border-radius: 12px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: var(--primary-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Courier New', monospace;
+            background: #0a0a0f;
+            color: #fff;
+            margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
-            width: 100%;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        pre {
+            background: #1a1a25;
             padding: 20px;
-        }
-
-        .logo {
-            margin-bottom: 20px;
-        }
-
-        .logo img {
-            height: 80px;
-            margin-bottom: 15px;
-        }
-
-        .logo h1 {
-            font-size: 32px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .api-section {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-
-        .code-block {
-            background-color: var(--secondary-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
+            border-radius: 5px;
             overflow-x: auto;
-            margin-top: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            line-height: 2;
-            color: var(--text-primary);
+            border-left: 4px solid #3a86ff;
         }
-
-        .api-endpoint {
+        .endpoint {
+            color: #3a86ff;
+            font-weight: bold;
+            margin-top: 30px;
             display: block;
-            margin-top: 25px;
-            padding: 15px;
-            background-color: var(--secondary-bg);
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .endpoint-url {
-            color: var(--accent-color);
-            font-weight: 600;
-            font-size: 18px;
-            word-break: break-all;
-        }
-
-        .endpoint-desc {
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
-        footer {
-            background-color: var(--secondary-bg);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            border-radius: var(--border-radius);
-        }
-
-        .footer-left {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .footer-left a {
-            color: var(--accent-color);
-            text-decoration: none;
-            margin-left: 15px;
-        }
-
-        .footer-left a:hover {
-            text-decoration: underline;
-        }
-
-        .language-selector select {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius);
-            padding: 8px 12px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            footer {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .footer-left {
-                order: 2;
-            }
-            
-            .language-selector {
-                order: 1;
-            }
-            
-            .footer-left a {
-                margin: 0 8px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <img src="https://cdn.liora.my/antalevpn.com/l/icon.png" alt="AntaleVPN Logo">
-                <h1>AntaleVPN IP API</h1>
-            </div>
-            <p class="subtitle">Raw IP addresses list for API integration</p>
-        </header>
-
-        <div class="api-section">
-            <h2 class="section-title">API Endpoint</h2>
-            <p>Use the following endpoint to retrieve a raw list of IP addresses:</p>
-            
-            <div class="api-endpoint">
-                <span class="endpoint-url">GET https://list.antalevpn.com/?=api-list</span>
-                <p class="endpoint-desc">Returns a plain text response with IP addresses separated by newlines.</p>
-            </div>
-        </div>
-
-        <div class="api-section">
-            <h2 class="section-title">Example Response</h2>
-            <p>The API endpoint returns a clean list of IP addresses without any HTML formatting:</p>
-            
-            <div class="code-block">
-                188.146.24.33<br>
-                95.111.206.247<br>
-                200.234.224.147
-            </div>
-        </div>
-
-        <div class="api-section">
-            <h2 class="section-title">Usage Examples</h2>
-            
-            <div class="code-block">
-                # Using curl<br>
-                curl https://list.antalevpn.com/?=api-list<br><br>
-                
-                # Using JavaScript fetch<br>
-                fetch('https://list.antalevpn.com/?=api-list')<br>
-                &nbsp;&nbsp;.then(response => response.text())<br>
-                &nbsp;&nbsp;.then(data => console.log(data));<br><br>
-                
-                # Using Python requests<br>
-                import requests<br>
-                response = requests.get('https://list.antalevpn.com/?=api-list')<br>
-                print(response.text)
-            </div>
-        </div>
+        <h1>AntaleVPN IP API</h1>
+        <p>Доступные эндпоинты:</p>
+        
+        <span class="endpoint">GET /?=api-list</span>
+        <pre id="ipList"></pre>
+        
+        <span class="endpoint">GET /?=api-json</span>
+        <pre id="ipJson"></pre>
     </div>
 
-    <footer>
-        <div class="footer-left">
-            <span>&copy; 2025 AntaleVPN. All rights reserved.</span>
-            <a href="mailto:support@antalevpn.com">support@antalevpn.com</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Discord</a>
-        </div>
-        <div class="language-selector">
-            <select id="languageSelect">
-                <option value="en">English (US)</option>
-                <option value="ko">Korean</option>
-                <option value="es">Spanish</option>
-                <option value="ru">Russian</option>
-                <option value="pl">Polish</option>
-            </select>
-        </div>
-    </footer>
-
     <script>
-        // Language selector
-        document.getElementById('languageSelect').addEventListener('change', function() {
-            alert('Language changed to ' + this.options[this.selectedIndex].text);
-        });
+        // Все IP в одной строке
+        const ipString = "188.146.24.33,95.111.206.247,200.234.224.147";
+        
+        // Разделяем по запятой
+        const ipArray = ipString.split(',');
+        
+        // Форматируем вывод
+        document.getElementById('ipList').textContent = ipArray.join('\n');
+        document.getElementById('ipJson').textContent = JSON.stringify({
+            ips: ipArray
+        }, null, 2);
+        
+        // Проверяем параметры URL для API
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.has('=api-list')) {
+            // Выводим чистый текст с IP-адресами
+            document.body.innerHTML = ipArray.join('\n');
+            document.contentType = 'text/plain';
+        }
+        else if (urlParams.has('=api-json')) {
+            // Выводим JSON
+            document.body.innerHTML = JSON.stringify({ ips: ipArray });
+            document.contentType = 'application/json';
+        }
     </script>
 </body>
 </html>
